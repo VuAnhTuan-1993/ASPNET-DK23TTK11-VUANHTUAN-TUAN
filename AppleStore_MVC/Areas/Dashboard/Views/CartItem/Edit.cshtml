@@ -1,0 +1,67 @@
+﻿@model AppleStore_MVC.Data.CartItem
+
+@{
+	ViewData["Title"] = "Edit";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+	<!-- Page Heading -->
+	@* <h1 class="h3 mb-2 text-gray-800">Tables</h1> *@
+	@* <p class="mb-4">
+		DataTables is a third party plugin that is used to generate the demo table below.
+		For more information about DataTables, please visit the <a target="_blank"
+																   href="https://datatables.net">official DataTables documentation</a>.
+	</p> *@
+
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-header py-3 d-flex justify-content-between align-items-center">
+			<h6 class="m-0 font-weight-bold text-primary">Edit Cart Item</h6>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-4">
+					<form asp-action="Edit">
+						<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+						<div class="form-group">
+							<label asp-for="cart_id" class="control-label">Cart Id</label>
+							<select asp-for="cart_id" class="form-control" asp-items="ViewBag.cart_id"></select>
+							<span asp-validation-for="cart_id" class="text-danger"></span>
+						</div>
+						<input type="hidden" asp-for="CartItemId" />
+						<div class="form-group">
+							<label asp-for="quantity" class="control-label">Quantity</label>
+							<input asp-for="quantity" class="form-control" />
+							<span asp-validation-for="quantity" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="unitPrice" class="control-label">Unit Price</label>
+							<input asp-for="unitPrice" class="form-control" />
+							<span asp-validation-for="unitPrice" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<label asp-for="pro_id" class="control-label">Product Name</label>
+							<select asp-for="pro_id" class="form-control" asp-items="ViewBag.pro_id"></select>
+							<span asp-validation-for="pro_id" class="text-danger"></span>
+						</div>
+						<div class="form-group">
+							<input type="submit" value="Save" class="btn btn-primary" />
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div>
+				<a asp-action="Index">Back to List</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

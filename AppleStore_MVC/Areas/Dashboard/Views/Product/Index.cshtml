@@ -1,0 +1,89 @@
+﻿@model IEnumerable<AppleStore_MVC.Data.Product>
+
+@{
+	ViewData["Title"] = "Index";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+	@if (TempData["ErrorMessage"] != null)
+	{
+		<div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+	}
+
+	@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+	{
+		<div class="alert alert-danger">@ViewBag.ErrorMessage</div>
+	}
+	<div class="card shadow mb-4">
+		<div class="card-header py-3 d-flex justify-content-between align-items-center">
+			<h6 class="m-0 font-weight-bold text-primary">Products</h6>
+			<a class="btn btn-primary" asp-action="Create">Add Product</a>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>
+								Product Name
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Description)
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Price)
+							</th>
+							<th>
+								Image Link
+							</th>
+							<th>
+								@Html.DisplayNameFor(model => model.Amount)
+							</th>
+							<th>
+								Sold Quantity
+							</th>
+							<th>
+								Category Name
+							</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in Model)
+						{
+							<tr>
+								<td>
+									@Html.DisplayFor(modelItem => item.ProductName)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Description)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Price)
+								</td>
+								<td>
+									<img src="@item.ImageLink" width="200"/>
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Amount)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.SoldQuantity)
+								</td>
+								<td>
+									@Html.DisplayFor(modelItem => item.Category.CategoryName)
+								</td>
+								<td>
+									<a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a> |
+									<a asp-action="Details" asp-route-id="@item.ProductId">Details</a> |
+									<a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+								</td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

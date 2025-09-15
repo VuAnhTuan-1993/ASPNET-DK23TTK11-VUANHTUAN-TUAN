@@ -1,0 +1,156 @@
+﻿@model AppleStore_MVC.Models.DashboardViewModel
+@{
+	ViewData["Title"] = "Dashboard";
+}
+
+<div class="container-fluid">
+	<h1 class="h3 mb-4 text-gray-800" style="margin-top: 20px;">Dashboard</h1>
+
+	<!-- KPI Cards -->
+	<div class="row">
+		<div class="col-xl-3 col-md-6 mb-4">
+			<div class="card border-left-primary shadow h-100 py-2">
+				<div class="card-body">
+					<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+						Doanh thu tháng này
+					</div>
+					<div class="h5 mb-0 font-weight-bold text-gray-800">
+						@Model.RevenueMonth.ToString("#,0") VNĐ
+					</div> 
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xl-3 col-md-6 mb-4">
+			<div class="card border-left-success shadow h-100 py-2">
+				<div class="card-body">
+					<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+						Doanh thu năm nay
+					</div>
+					<div class="h5 mb-0 font-weight-bold text-gray-800">
+						@Model.RevenueYear.ToString("#,0") VNĐ
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xl-3 col-md-6 mb-4">
+			<div class="card border-left-info shadow h-100 py-2">
+				<div class="card-body">
+					<div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+						Tổng số đơn hàng
+					</div>
+					<div class="h5 mb-0 font-weight-bold text-gray-800">
+						@Model.TotalOrders
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xl-3 col-md-6 mb-4">
+			<div class="card border-left-warning shadow h-100 py-2">
+				<div class="card-body">
+					<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+						Tổng số người dùng
+					</div>
+					<div class="h5 mb-0 font-weight-bold text-gray-800">
+						@Model.TotalUsers
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Charts -->
+	<div class="row">
+		<div class="col-xl-8 col-lg-7">
+			<div class="card shadow mb-4">
+				<div class="card-header">Doanh thu theo tháng</div>
+				<div class="card-body">
+					<canvas id="revenueChart"></canvas>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xl-4 col-lg-5">
+			<div class="card shadow mb-4">
+				<div class="card-header">Top 5 sản phẩm bán chạy</div>
+				<div class="card-body">
+					<canvas id="productChart"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Low Stock -->
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="card shadow mb-4">
+				<div class="card-header">Sản phẩm sắp hết hàng</div>
+				<div class="card-body">
+					
+					@if (Model.LowStockProducts.Any())
+					{
+						<ul>
+							@foreach (var p in Model.LowStockProducts)
+							{
+								<li>@p.Key - Còn lại: @p.Value</li>
+							}
+						</ul>
+					}
+					else
+					{
+						<p>Không có sản phẩm nào sắp hết hàng</p>
+					}
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Chart.js -->
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Doanh thu theo tháng
+        var ctxRevenue = document.getElementById("revenueChart").getContext('2d');
+        var revenueChart = new Chart(ctxRevenue, {
+            type: 'line',
+            data: {
+                labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.RevenueMonths)),
+                datasets: [{
+                    label: 'Doanh thu',
+                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.RevenueValues)),
+                    borderColor: 'blue',
+                    fill: false
+                }]
+            }
+        });
+
+        // Top 5 sản phẩm bán chạy
+        var ctxProduct = document.getElementById("productChart").getContext('2d');
+        var productChart = new Chart(ctxProduct, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProductNames)),
+                datasets: [{
+                    label: 'Số lượng bán',
+                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.TopProductSales)),
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { precision: 0 }
+                    }
+                }
+            }
+        });
+    </script>
+}

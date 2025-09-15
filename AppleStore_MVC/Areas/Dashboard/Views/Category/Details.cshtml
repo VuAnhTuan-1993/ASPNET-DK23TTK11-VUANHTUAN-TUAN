@@ -1,0 +1,94 @@
+﻿@model AppleStore_MVC.Data.Category
+
+@{
+	ViewData["Title"] = "Details";
+}
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+
+	<!-- Page Heading -->
+	@* <h1 class="h3 mb-2 text-gray-800">Tables</h1> *@
+	@* <p class="mb-4">
+		DataTables is a third party plugin that is used to generate the demo table below.
+		For more information about DataTables, please visit the <a target="_blank"
+																   href="https://datatables.net">official DataTables documentation</a>.
+	</p> *@
+
+	<!-- DataTales Example -->
+	<div class="card shadow mb-4">
+		<div class="card-header py-3 d-flex justify-content-between align-items-center">
+			<h6 class="m-0 font-weight-bold text-primary">Category Detail</h6>
+		</div>
+		<div class="card-body">
+			<dl class="row">
+				<dt class="col-sm-2">
+					Category Name
+				</dt>
+				<dd class="col-sm-10">
+					@Html.DisplayFor(model => model.CategoryName)
+				</dd>
+				<dt class="col-sm-2">
+					@Html.DisplayNameFor(model => model.Icon)
+				</dt>
+				@* <dd class="col-sm-10">
+					@Html.DisplayFor(model => model.Icon)
+				</dd> *@
+				<dd class="col-sm-10">
+					<img src="@Url.Content("~/Upload/category/" + Model.Icon)" alt="Ảnh sản phẩm" style="max-width:200px; height:auto;" />
+				</dd>
+
+			</dl>
+
+			@* <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		<thead>
+			<tr>
+				<th>
+					@Html.DisplayNameFor(model => model.CategoryId)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.CategoryName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Icon)		
+				</th>			
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+					<td>
+						@Html.DisplayFor(modelItem => item.ProductName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Description)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Price)
+					</td>
+					<td>
+						<img src="@item.ImageLink" width="200" />
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Amount)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.SoldQuantity)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Category.CategoryId)
+					</td>					
+				</tr>
+			}
+		</tbody>
+	</table> *@
+			<div>
+				<a asp-action="Edit" asp-route-id="@Model.CategoryId">Edit</a> |
+				<a asp-action="Index">Back to List</a>
+			</div>
+		</div>
+
+	</div>
+</div>
