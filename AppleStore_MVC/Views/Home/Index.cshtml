@@ -1,0 +1,324 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+
+                    <style>
+                        
+                        .carousel-item img {
+                            width: 100%;
+                            height: 400px;
+                            object-fit: cover;
+                        }
+
+                        .carousel-control-prev,
+                        .carousel-control-next {
+                            background-color: transparent;
+                            border: none;
+                            opacity: 1;
+                        }
+
+                        .carousel-control-prev-icon,
+                        .carousel-control-next-icon {
+                            background-color: rgba(0, 0, 0, 0.3);
+                            border-radius: 50%;
+                        }
+
+                        .carousel-control-prev:hover .carousel-control-prev-icon,
+                        .carousel-control-next:hover .carousel-control-next-icon {
+                            background-color: rgba(0, 0, 0, 0.6);
+                        }
+
+                       
+                        .product-card {
+                            background: white;
+                            border-radius: 12px;
+                            padding: 16px;
+                            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+                            transition: all 0.3s ease !important;
+                            cursor: pointer;
+                        }
+
+                            .product-card:hover {
+                                border-color: #0d6efd !important;
+                                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+                                transform: translateY(-5px) !important;
+                            }
+
+                        
+                        .card {
+                            transition: all 0.3s ease !important;
+                            cursor: pointer;
+                        }
+
+                            .card:hover {
+                                border-color: #0d6efd !important;
+                                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+                                transform: translateY(-5px) !important;
+                            }
+
+                        /* Enhanced effects for cards with border-5 */
+                        .border-5 {
+                            transition: all 0.3s ease !important;
+                        }
+
+                            .border-5:hover {
+                                border-color: #0d6efd !important;
+                                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+                                transform: translateY(-5px) !important;
+                            }
+
+                        .card-img-top {
+                            width: 100% !important;
+                            height: 200px !important;
+                            object-fit: cover !important;
+                            object-position: center !important;
+                        }
+
+                       
+                        .btn {
+                            transition: all 0.3s ease;
+                        }
+
+                            .btn:hover {
+                                transform: translateY(-2px);
+                                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                            }
+
+                       
+                        .badge {
+                            transition: all 0.3s ease;
+                        }
+
+                        .card:hover .badge {
+                            transform: scale(1.05);
+                        }
+
+                       
+                        .card-title a {
+                            transition: all 0.3s ease;
+                            text-decoration: none;
+                        }
+
+                            .card-title a:hover {
+                                color: #0d6efd !important;
+                            }
+
+                        
+                        .fa {
+                            transition: all 0.3s ease;
+                        }
+
+                        .card:hover .fa-check-circle {
+                            transform: scale(1.1);
+                            color: #198754 !important;
+                        }
+
+                        .card:hover .fa-heart,
+                        .card:hover .fa-star,
+                        .card:hover .fa-trophy {
+                            transform: scale(1.1) rotate(5deg);
+                        }
+
+                        
+                        .list-unstyled li {
+                            transition: all 0.3s ease;
+                        }
+
+                        .card:hover .list-unstyled li {
+                            transform: translateX(3px);
+                        }
+                    </style>
+
+                    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img class="d-block" src="https://www.apple.com/assets-www/en_WW/mac/product_tile/xlarge/mba_13_15_e70345aaa_2x.png" alt="First slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block" src="https://www.apple.com/v/watch/br/images/overview/select/product_u2__hedpiz396nue_large_2x.png" alt="Second slide">
+                            </div>
+                            <div class="carousel-item">
+                                <img class="d-block" src="https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/store-card-40-iphone-16e-202502?wid=800&hei=1000&fmt=jpeg&qlt=90&.v=UzBXQnlhUWdraTNvNU1Kb3pEQlpXUEpocHFEYXNEd3ZLM21EWlJLVUF6am45S05qekNUdVUwMVFyK1pKaERUd2JGcXNRQnFCV0w3WVRjTExvdm1ic1RTTDdTY01tcXFQU3QvbDFBbGxDRkc1dDgvV3BhU1hoSzFPUEZjam5HQ2g" alt="Third slide">
+                            </div>
+                        </div>
+
+                        
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+        <div class="col-12 col-md-3">
+            <div class="card">
+                <div class="product-card">
+                    <div class="card border-0 shadow-sm h-100">
+                        <div class="card-header bg-success text-white text-uppercase d-flex align-items-center">
+                            <i class="fa fa-heart me-2"></i> Best Seller
+                        </div>
+
+                        <img src="@Model.BestSellerProduct.ImageLink"
+                             alt="@Model.BestSellerProduct.ProductName"
+                             class="card-img-top">
+
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title text-truncate mb-2">
+                                <a href="/ProductDetail?productId=@Model.BestSellerProduct.ProductId" class="text-decoration-none text-dark" title="View Product">
+                                    @Model.BestSellerProduct.ProductName
+                                </a>
+                            </h5>
+
+                            <ul class="list-unstyled small text-muted mb-3">
+                                @foreach (var line in Model.BestSellerProduct.Description.Split('.', StringSplitOptions.RemoveEmptyEntries))
+                                {
+                                    <li class="mb-1">
+                                        <i class="fa fa-check-circle text-success me-2"></i> @line.Trim()
+                                    </li>
+                                }
+                            </ul>
+
+                            <div class="mt-auto d-flex justify-content-between align-items-center">
+                                <span class="badge bg-white text-danger border border-danger fs-5 fw-bold p-2 rounded">
+                                    @Model.BestSellerProduct.Price $
+                                </span>
+
+                                <a href="/Cart/AddToCart?productId=@Model.BestSellerProduct.ProductId&amount=1" class="btn btn-success btn-sm">
+                                    <i class="fa fa-cart-plus me-1"></i> Add to cart
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-sm">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-uppercase">
+                        <i class="fa fa-star"></i> Sản phẩm mới
+                    </div>
+                    <div class="card-body">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                            @foreach (var product in Model.NewestProducts)
+                            {
+                                <div class="col">
+                                    <div class="card h-100 shadow-sm border-5">
+                                        <img class="card-img-top" src="@product.ImageLink">
+                                        <div class="card-body d-flex flex-column">
+                                            <h4 class="card-title"><a href="/ProductDetail?productId=@product.ProductId" title="View Product">@product.ProductName</a></h4>
+
+                                            @{
+                                                var line1s = product.Description.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                                            }
+                                            <ul class="list-unstyled mb-3">
+                                                @foreach (var line in line1s)
+                                                {
+                                                    <li class="mb-1">
+                                                        <i class="fa fa-check-circle text-success me-2"></i>@line.Trim()
+                                                    </li>
+                                                }
+                                            </ul>
+
+                                            <div class="mt-auto">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="badge bg-white text-danger border border-danger fs-5 fw-bold p-2 rounded">
+                                                        @product.Price $
+                                                    </span>
+
+                                                    <a href="/Cart/AddToCart?productId=@product.ProductId&amount=1" class="btn btn-sm btn-success">
+                                                        <i class="fa fa-cart-plus me-1"></i>
+                                                        Add to cart
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container mt-3 mb-4">
+        <div class="row">
+            <div class="col-sm">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-uppercase">
+                        <i class="fa fa-trophy"></i> Sản phẩm bán chạy
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+                                @foreach (var product in Model.TopSellingProducts)
+                                {
+                                    <div class="col">
+                                        <div class="card h-100 shadow-sm border-5">
+                                            <img class="card-img-top" src="@product.ImageLink" alt="@product.ProductName">
+                                            <div class="card-body d-flex flex-column">
+                                                <h4 class="card-title"><a href="/ProductDetail?productId=@product.ProductId" title="View Product">@product.ProductName</a></h4>
+
+                                                @{
+                                                    var line2s = product.Description.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                                                }
+                                                <ul class="list-unstyled mb-3">
+                                                    @foreach (var line in line2s)
+                                                    {
+                                                        <li class="mb-1">
+                                                            <i class="fa fa-check-circle text-success me-2"></i>@line.Trim()
+                                                        </li>
+                                                    }
+                                                </ul>
+
+                                                <div class="mt-auto">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span class="badge bg-white text-danger border border-danger fs-5 fw-bold p-2 rounded">
+                                                            @product.Price $
+                                                        </span>
+
+                                                        <a href="/Cart/AddToCart?productId=@product.ProductId&amount=1" class="btn btn-sm btn-success">
+                                                            <i class="fa fa-cart-plus me-1"></i>
+                                                            Add to cart
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

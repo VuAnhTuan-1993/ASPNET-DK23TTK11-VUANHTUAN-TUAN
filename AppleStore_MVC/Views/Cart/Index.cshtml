@@ -1,0 +1,100 @@
+﻿<div class="container mb-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="table-responsive">
+                <style>
+                    .product-img {
+                        max-width: 80px;
+                        max-height: 80px;
+                        object-fit: contain;
+                    }
+                </style>
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ảnh sản phẩm</th>
+                            <th scope="col">Tên sản phẩm</th>
+                            <th scope="col" class="text-center">Số lượng</th>
+                            <th scope="col" class="text-right">Giá</th>
+                            <th scope="col" class="text-right">Xóa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><img src="@item.imageLink" class="product-img" /></td>
+                                <td>@item.productName</td>
+                                <td class="text-center">
+                                    <input class="form-control text-center quantity-input"
+                                           type="number"
+                                           value="@item.amount"
+                                           style="width:70px;"
+                                           data-id="@item.productId" />
+                                </td>
+                                <td class="text-right">@item.totalPrice $</td>
+                                <td class="text-right">
+                                    <button class="btn btn-sm btn-danger delete-btn" data-id="@item.productId">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+
+                        <!-- Total -->
+                        <tr>
+                            <td colspan="3"></td>
+                            <td class="text-right"><strong>Total</strong></td>
+                            <td class="text-right"><strong>@ViewBag.totalAll $</strong></td>
+                        </tr>
+                    </tbody>
+                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                    <script>
+                        // Update quantity
+                        $(document).on("change", ".quantity-input", function () {
+                            var productId = $(this).data("id");
+                            var newAmount = $(this).val();
+                            $.get("/Cart/UpdateAmount", { productId: productId, amount: newAmount }, function (res) {
+                                if (res.success) {
+                                    location.reload();
+                                }
+                            });
+                        });
+
+                        // Delete item
+                        $(document).on("click", ".delete-btn", function () {
+                            var productId = $(this).data("id");
+
+                            // Confirm before delete
+                            if (confirm("Bạn có chắc muốn xóa sản phẩm này khỏi giỏ hàng?")) {
+                                $.get("/Cart/DeleteItem", { productId: productId }, function (res) {
+                                    if (res.success) {
+                                        location.reload();
+                                    } else {
+                                        alert("Không thể xóa sản phẩm: " + (res.message || "Lỗi không xác định"));
+                                    }
+                                }).fail(function() {
+                                    alert("Có lỗi xảy ra khi xóa sản phẩm");
+                                });
+                            }
+                        });
+                    </script>
+                </table>
+
+            </div>
+        </div>
+        <div class="col mb-2">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <button onclick="window.location.href='/Home'" class="btn btn-block btn-light">
+                        Continue Shopping
+                    </button>
+                </div>
+                <div class="col-sm-12 col-md-6 text-right">
+                    <button class="btn btn-lg btn-block btn-success text-uppercase">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,152 @@
+﻿<div class="container">
+    <div class="row">
+        <div class="col">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/Home">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="/Product?cid=0&page=1&name=none">Danh mục</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Danh mục con</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-3">
+            <div class="card bg-light mb-3">
+                <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Danh mục</div>
+                <ul class="list-group category_block border border-3 border-dark rounded">
+
+                    @foreach (var item in ViewBag.Categories)
+                    {
+                        var isActive = item.CategoryId == Model.Cid ? "active border border-3 border-primary" : "";
+                        <li class="list-group-item d-flex align-items-center @isActive">
+                            <img src="/image?fname=category/@item.Icon"
+                                 alt="@item.CategoryName"
+                                 class="me-3 rounded-circle"
+                                 style="width: 40px; height: 40px; object-fit: cover;" />
+
+                            <a href="/Product?cid=@item.CategoryId&page=1&name=none" class="text-decoration-none text-dark">
+                                @item.CategoryName
+                            </a>
+                        </li>
+                    }
+
+                </ul>
+
+
+            </div>
+            <div class="card bg-light mb-3 product-card">
+                <div class="card-header bg-success text-white text-uppercase">Best Seller</div>
+                <div class="card-body">
+                    <img src="@Model.BestSellerProduct.ImageLink"
+                         alt="@Model.BestSellerProduct.ProductName"
+                         class="card-img-top"
+                         style="height: 220px; object-fit: cover; border-bottom: 1px solid #eee;">
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-truncate mb-2">
+                            <a href="/ProductDetail?productId=@Model.BestSellerProduct.ProductId" class="text-decoration-none text-dark" title="View Product">
+                                @Model.BestSellerProduct.ProductName
+                            </a>
+                        </h5>
+
+                        <ul class="list-unstyled small text-muted mb-3">
+                            @foreach (var line in Model.BestSellerProduct.Description.Split('.', StringSplitOptions.RemoveEmptyEntries))
+                            {
+                                <li class="mb-1">
+                                    <i class="fa fa-check-circle text-success me-2"></i> @line.Trim()
+                                </li>
+                            }
+                        </ul>
+
+                        <div class="mt-auto d-flex justify-content-between align-items-center w-100">
+                            <span class="badge bg-white text-danger border border-danger fs-5 fw-bold p-2 rounded me-3">
+                                @Model.BestSellerProduct.Price $
+                            </span>
+
+                            <a href="/Cart/AddToCart?productId=@Model.BestSellerProduct.ProductId&amount=1" class="btn btn-success btn-sm">
+                                <i class="fa fa-cart-plus me-1"></i>
+                                Add to cart
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row g-4">
+
+                @foreach (var product in Model.Products)
+                {
+                    <div class="col-12 col-md-6 col-lg-4 d-flex product-column mb-4">
+                        <div class="card product-card border border-secondary rounded-3 shadow-sm w-100 d-flex flex-column h-100 transition">
+
+                            <img class="card-img-top rounded-top" src="@product.ImageLink" alt="@product.ProductName" style="height: 200px; object-fit: cover;">
+
+                            <div class="card-body d-flex flex-column flex-grow-1">
+                                <h5 class="card-title">
+                                    <a href="/ProductDetail?productId=@product.ProductId" class="text-decoration-none text-dark">@product.ProductName</a>
+                                </h5>
+
+                                @{
+                                    var lines = product.Description.Split('.', StringSplitOptions.RemoveEmptyEntries);
+                                    var count = 0;
+                                }
+                                <ul class="list-unstyled mb-3">
+                                    @foreach (var line in lines)
+                                    {
+                                        if (count++ == 3) { break; }
+                                        <li class="mb-1">
+                                            <i class="fa fa-check-circle text-success me-2"></i>@line.Trim()
+                                        </li>
+                                    }
+                                </ul>
+
+                                <div class="mt-auto d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-white text-danger border border-danger fs-5 fw-bold p-2 rounded">
+                                        @product.Price $
+                                    </span>
+
+                                    <a href="/Cart/AddToCart?productId=@product.ProductId&amount=1" class="btn btn-sm btn-success">
+                                        <i class="fa fa-cart-plus me-1"></i>
+                                        Add to cart
+                                        </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="col-12">
+                    <nav aria-label="...">
+                        <ul class="pagination">
+
+                            @* Trang trước *@
+                            <li class="page-item @(Model.CurrentPage > 1 ? "" : "disabled")">
+                                <a class="page-link" href="/Product?cid=@Model.Cid&page=@(Model.CurrentPage - 1)&name=@Model.name">Trang trước</a>
+                            </li>
+
+                            @* Các số trang *@
+                            @for (int i = 1; i <= Model.EndPage; i++)
+                            {
+                                <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                                    <a class="page-link" href="/Product?cid=@Model.Cid&page=@i&name=@Model.name">@i</a>
+                                </li>
+                            }
+
+                            @* Trang sau *@
+                            <li class="page-item @(Model.CurrentPage < Model.EndPage ? "" : "disabled")">
+                                <a class="page-link" href="/Product?cid=@Model.Cid&page=@(Model.CurrentPage + 1)&name=@Model.name">Trang sau</a>
+                            </li>
+
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

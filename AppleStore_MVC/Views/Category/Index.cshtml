@@ -1,0 +1,27 @@
+﻿@model IEnumerable<AppleStore_MVC.Data.Category>
+
+@{
+    ViewData["Title"] = "Danh sách danh mục";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>CategoryId</th>
+            <th>CategoryName</th>
+            <th>Icon</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CategoryId</td>
+                <td>@item.CategoryName</td>
+                <td>@Html.Raw(item.Icon)</td>
+            </tr>
+        }
+    </tbody>
+</table>

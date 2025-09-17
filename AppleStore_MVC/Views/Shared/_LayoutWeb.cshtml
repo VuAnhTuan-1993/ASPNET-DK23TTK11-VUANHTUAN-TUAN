@@ -1,0 +1,203 @@
+﻿@using Newtonsoft.Json
+@using Newtonsoft.Json
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var cid = Context.Request.Query["cid"].FirstOrDefault() ?? "0"; // default 0
+}
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <!-- Site meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Free Bootstrap 4 Ecommerce Template</title>
+    <!-- CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600" rel="stylesheet" type="text/css">
+    <link href="~/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/Home">Apple Store</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+                    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link @(currentController == "Home" ? "active" : "")" href="/Home">Trang chủ</a>
+                    </li>
+                    <li class="nav-item dropdown @(currentController == "Product" && cid != "0" ? "active" : "")">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            Danh mục
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @foreach (var item in ViewBag.Categories)
+                            {
+                                <li>
+                                    <a class="dropdown-item d-flex align-items-center @(cid == item.CategoryId.ToString() ? "active" : "")" href="/Product?cid=@item.CategoryId&page=1&name=none">
+                                        <img src="/image?fname=category/@item.Icon" alt="@item.CategoryName"
+                                             style="width: 24px; height: 24px; object-fit: cover; margin-right: 8px;" />
+                                        @item.CategoryName
+                                    </a>
+                                </li>
+                            }
+                        </ul
+                    </li>
+                    <li class="nav-item @((currentController == "Product" || currentController == "ProductDetail") && cid == "0" ? "active" : "")">
+                        <a class="nav-link" href="/Product?cid=0&page=1&name=none">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item @(currentController == "Cart" ? "active" : "")">
+                        <a class="nav-link" href="/Cart">Giỏ Hàng</a>
+                    </li>
+                </ul>
+
+                
+                <!-- Phần bên phải của Navbar -->
+                <div class="d-flex align-items-center">
+                    <!-- Form tìm kiếm -->
+                    <form action="Product" class="d-flex" style="margin-right: 20px;">
+                        <div class="input-group input-group-sm">
+                            <input type="text" name="name" class="form-control" placeholder="Search...">
+                            <button class="btn btn-secondary btn-sm" type="button">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Cart -->
+                    <div style="margin-right: 20px;">
+                        <a class="btn btn-success btn-sm" href="/Cart">
+                            <i class="fa fa-shopping-cart"></i> Cart
+                            <span class="badge bg-light text-dark">@ViewBag.CartCount</span>
+                        </a>
+                    </div>
+
+                    <!-- Session -->
+                    @{
+                        var sessionStr = Context.Session.GetString("acc");
+                        UserSession user = null;
+                        if (!string.IsNullOrEmpty(sessionStr))
+                        {
+                            user = JsonConvert.DeserializeObject<UserSession>(sessionStr);
+                        }
+                    }
+
+                    <div style="margin-left: 10px;">
+                        @if (user != null)
+                        {
+                            <!-- Dropdown User Info -->
+                            <div class="dropdown">
+                                <a class="btn btn-outline-light btn-sm dropdown-toggle" href="#" role="button" id="userDropdown"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-user-circle"></i> @user.UserName
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="/Login/LogoutAccount">Đăng xuất</a></li>
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <a class="btn btn-outline-light btn-sm" href="/Login">Đăng nhập</a>
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">ĐƠN GIẢN - TINH TẾ - ĐẲNG CẤP</h1>
+            <p class="lead text-muted mb-0">Apple Store - Nơi khám phá giá trị khác biệt, vượt mọi giới hạn, định hình phong cách riêng</p>
+        </div>
+    </section>
+    <!-- End Header -->
+
+    <div class="container">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light pt-5 pb-3 mt-5">
+        <div class="container">
+            <div class="row gy-4">
+                <!-- About -->
+                <div class="col-md-4">
+                    <h5 class="fw-bold">Apple Store</h5>
+                    <p class="small text-muted">
+                        Chuyên cung cấp các sản phẩm chính hãng Apple: iPhone, iPad, MacBook, AirPods, Apple Watch...
+                    </p>
+                </div>
+
+                <!-- Links -->
+                <div class="col-md-2">
+                    <h6 class="fw-bold">Sản phẩm</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li><a href="#" class="text-decoration-none text-light">iPhone</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">iPad</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">MacBook</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">Apple Watch</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">Air</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div class="col-md-3">
+                    <h6 class="fw-bold">Dịch vụ</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li><a href="#" class="text-decoration-none text-light">Bảo hành chính hãng</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">Thu cũ đổi mới</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">Trả góp 0%</a></li>
+                        <li><a href="#" class="text-decoration-none text-light">Hỗ trợ kỹ thuật</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="col-md-3">
+                    <h6 class="fw-bold">Liên hệ</h6>
+                    <ul class="list-unstyled text-muted small">
+                        <li><i class="fa fa-map-marker me-2"></i> 123 Apple Street, Hà Nội</li>
+                        <li><i class="fa fa-envelope me-2"></i> support@applestore.vn</li>
+                        <li><i class="fa fa-phone me-2"></i> 0123 456 789</li>
+                    </ul>
+                    <!-- Social Icons -->
+                    <div class="mt-2">
+                        <a href="#" class="text-light me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-light me-3"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom -->
+            <hr class="border-secondary my-4">
+            <div class="d-flex justify-content-between flex-wrap">
+                <p class="small text-muted mb-0">© 2025 Apple Store Việt Nam. All rights reserved.</p>
+                <p class="small text-muted mb-0">
+                    Made with <i class="fa fa-heart text-danger"></i> for Apple fans
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+    <!-- JS Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
